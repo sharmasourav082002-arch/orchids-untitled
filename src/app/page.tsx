@@ -140,14 +140,17 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Get Ready Section */}
+      {/* Our Collection Section */}
       <section className="bg-zinc-50 py-24">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="mb-12 text-4xl font-serif">
-            <span className="text-zinc-300">shne</span> Get Ready for Summer
-          </h2>
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-serif mb-4">
+              <span className="text-zinc-300">shne</span> Our Collection
+            </h2>
+            <p className="text-zinc-500 uppercase tracking-widest text-[10px]">Ethically made • Premium quality • Limited edition</p>
+          </div>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
-            {products.slice(0, 4).map((p) => (
+            {products.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>

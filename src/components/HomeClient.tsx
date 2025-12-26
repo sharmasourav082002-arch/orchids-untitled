@@ -603,13 +603,14 @@ export default function HomeClient({ products }: HomeClientProps) {
               </ul>
             </div>
           </div>
-          <div className="mt-40 border-t border-zinc-900 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-700">
-            <div>© 2024 LUXE MARKET LIFESTYLE. ALL RIGHTS RESERVED.</div>
-            <div className="flex gap-10">
-              <span className="cursor-pointer hover:text-white transition-colors">United Kingdom</span>
-              <span className="cursor-pointer hover:text-white transition-colors">GBP £</span>
+            <div className="mt-40 border-t border-zinc-900 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-[0.4em] text-zinc-700">
+              <div>© 2024 LUXE MARKET LIFESTYLE. ALL RIGHTS RESERVED.</div>
+              <div className="flex gap-10">
+                <span className="cursor-pointer hover:text-white transition-colors">India</span>
+                <span className="cursor-pointer hover:text-white transition-colors">INR ₹</span>
+              </div>
             </div>
-          </div>
+
         </div>
       </footer>
     </div>

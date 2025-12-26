@@ -15,6 +15,7 @@ import { CheckCircle2, ShoppingBag, ArrowLeft, Phone, MessageCircle, Banknote } 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
+// Verification comment to trigger rebuild
 const WHATSAPP_NUMBER = '+447448071922';
 
 function ShieldCheck({ className }: { className?: string }) {

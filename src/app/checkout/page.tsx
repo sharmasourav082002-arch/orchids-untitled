@@ -13,9 +13,29 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/lib/supabase';
 import { CheckCircle2, ShoppingBag, ArrowLeft, Phone, MessageCircle, Banknote } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const WHATSAPP_NUMBER = '+447448071922';
+
+function ShieldCheck({ className }: { className?: string }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className={className}
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
@@ -132,35 +152,35 @@ Please confirm this order. Thank you! 🙏`;
             </div>
             <h1 className="mb-4 text-4xl font-bold tracking-tight">Order Placed Successfully!</h1>
             <p className="mb-8 text-lg text-zinc-600 dark:text-zinc-400">
-              Thank you for your order. We've received your request and will process it shortly.
+              Thank you for your order. We&apos;ve received your request and will process it shortly.
             </p>
             
-              <Card className="mb-8 border-dashed bg-zinc-100/50 dark:bg-zinc-900/50">
-                <CardContent className="p-8">
-                  {paymentMethod === 'whatsapp' ? (
-                    <>
-                      <div className="flex items-center justify-center gap-3 text-xl font-bold text-green-600">
-                        <MessageCircle className="h-6 w-6" />
-                        <span>WhatsApp Order Sent</span>
-                      </div>
-                      <p className="mt-4 text-sm text-zinc-500">
-                        A WhatsApp message with your order details has been prepared. Complete the order by sending the message to confirm your purchase.
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex items-center justify-center gap-3 text-xl font-bold">
-                        <Phone className="h-6 w-6 text-zinc-500" />
-                        <span>{WHATSAPP_NUMBER}</span>
-                      </div>
-                      <p className="mt-4 text-sm text-zinc-500">
-                        Our team will contact you at this number to confirm your <strong>Cash on Delivery</strong> order. 
-                        Please keep your phone active.
-                      </p>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
+            <Card className="mb-8 border-dashed bg-zinc-100/50 dark:bg-zinc-900/50">
+              <CardContent className="p-8">
+                {paymentMethod === 'whatsapp' ? (
+                  <>
+                    <div className="flex items-center justify-center gap-3 text-xl font-bold text-green-600">
+                      <MessageCircle className="h-6 w-6" />
+                      <span>WhatsApp Order Sent</span>
+                    </div>
+                    <p className="mt-4 text-sm text-zinc-500">
+                      A WhatsApp message with your order details has been prepared. Complete the order by sending the message to confirm your purchase.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center justify-center gap-3 text-xl font-bold">
+                      <Phone className="h-6 w-6 text-zinc-500" />
+                      <span>{WHATSAPP_NUMBER}</span>
+                    </div>
+                    <p className="mt-4 text-sm text-zinc-500">
+                      Our team will contact you at this number to confirm your <strong>Cash on Delivery</strong> order. 
+                      Please keep your phone active.
+                    </p>
+                  </>
+                )}
+              </CardContent>
+            </Card>
 
             <Link href="/">
               <Button size="lg" className="rounded-full px-8">
@@ -185,7 +205,6 @@ Please confirm this order. Thank you! 🙏`;
         </div>
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-          {/* Checkout Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-8">
               <section>
@@ -252,84 +271,83 @@ Please confirm this order. Thank you! 🙏`;
 
               <Separator />
 
-                <section>
-                  <h3 className="mb-6 text-xl font-semibold">Payment Method</h3>
-                  <div className="space-y-4">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('cod')}
-                      className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
-                        paymentMethod === 'cod' 
-                          ? 'border-black dark:border-white bg-zinc-50 dark:bg-zinc-900' 
-                          : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                            paymentMethod === 'cod' ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-zinc-100 dark:bg-zinc-800'
-                          }`}>
-                            <Banknote className="h-6 w-6" />
-                          </div>
-                          <div>
-                            <p className="font-bold uppercase tracking-wider">Cash on Delivery</p>
-                            <p className="text-sm text-zinc-500">Pay when your order arrives at your doorstep</p>
-                          </div>
-                        </div>
-                        <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
-                          paymentMethod === 'cod' ? 'border-black dark:border-white' : 'border-zinc-300'
+              <section>
+                <h3 className="mb-6 text-xl font-semibold">Payment Method</h3>
+                <div className="space-y-4">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('cod')}
+                    className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
+                      paymentMethod === 'cod' 
+                        ? 'border-black dark:border-white bg-zinc-50 dark:bg-zinc-900' 
+                        : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                          paymentMethod === 'cod' ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-zinc-100 dark:bg-zinc-800'
                         }`}>
-                          {paymentMethod === 'cod' && <div className="h-3 w-3 rounded-full bg-black dark:bg-white" />}
+                          <Banknote className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <p className="font-bold uppercase tracking-wider">Cash on Delivery</p>
+                          <p className="text-sm text-zinc-500">Pay when your order arrives at your doorstep</p>
                         </div>
                       </div>
-                    </button>
+                      <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
+                        paymentMethod === 'cod' ? 'border-black dark:border-white' : 'border-zinc-300'
+                      }`}>
+                        {paymentMethod === 'cod' && <div className="h-3 w-3 rounded-full bg-black dark:bg-white" />}
+                      </div>
+                    </div>
+                  </button>
 
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod('whatsapp')}
-                      className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
-                        paymentMethod === 'whatsapp' 
-                          ? 'border-green-500 bg-green-50 dark:bg-green-950/20' 
-                          : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                            paymentMethod === 'whatsapp' ? 'bg-green-500 text-white' : 'bg-zinc-100 dark:bg-zinc-800'
-                          }`}>
-                            <MessageCircle className="h-6 w-6" />
-                          </div>
-                          <div>
-                            <p className="font-bold uppercase tracking-wider">Order via WhatsApp</p>
-                            <p className="text-sm text-zinc-500">Chat with us directly to complete your order</p>
-                          </div>
-                        </div>
-                        <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
-                          paymentMethod === 'whatsapp' ? 'border-green-500' : 'border-zinc-300'
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('whatsapp')}
+                    className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
+                      paymentMethod === 'whatsapp' 
+                        ? 'border-green-500 bg-green-50 dark:bg-green-950/20' 
+                        : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                          paymentMethod === 'whatsapp' ? 'bg-green-500 text-white' : 'bg-zinc-100 dark:bg-zinc-800'
                         }`}>
-                          {paymentMethod === 'whatsapp' && <div className="h-3 w-3 rounded-full bg-green-500" />}
+                          <MessageCircle className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <p className="font-bold uppercase tracking-wider">Order via WhatsApp</p>
+                          <p className="text-sm text-zinc-500">Chat with us directly to complete your order</p>
                         </div>
                       </div>
-                    </button>
-                  </div>
-                </section>
+                      <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
+                        paymentMethod === 'whatsapp' ? 'border-green-500' : 'border-zinc-300'
+                      }`}>
+                        {paymentMethod === 'whatsapp' && <div className="h-3 w-3 rounded-full bg-green-500" />}
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </section>
 
-                <Button 
-                  type="submit" 
-                  className={`w-full py-8 text-lg font-bold uppercase tracking-widest ${
-                    paymentMethod === 'whatsapp' 
-                      ? 'bg-green-500 hover:bg-green-600' 
-                      : ''
-                  }`}
-                  disabled={loading || cart.length === 0}
-                >
-                  {loading ? 'Processing...' : paymentMethod === 'whatsapp' ? 'Order via WhatsApp' : 'Place Order'}
-                </Button>
-              </form>
-            </div>
+              <Button 
+                type="submit" 
+                className={`w-full py-8 text-lg font-bold uppercase tracking-widest ${
+                  paymentMethod === 'whatsapp' 
+                    ? 'bg-green-500 hover:bg-green-600' 
+                    : ''
+                }`}
+                disabled={loading || cart.length === 0}
+              >
+                {loading ? 'Processing...' : paymentMethod === 'whatsapp' ? 'Order via WhatsApp' : 'Place Order'}
+              </Button>
+            </form>
+          </div>
 
-          {/* Order Summary */}
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
               <CardHeader>
@@ -384,25 +402,5 @@ Please confirm this order. Thank you! 🙏`;
         </div>
       </main>
     </div>
-  );
-}
-
-function ShieldCheck({ className }: { className?: string }) {
-  return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width="24" 
-      height="24" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className}
-    >
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
   );
 }

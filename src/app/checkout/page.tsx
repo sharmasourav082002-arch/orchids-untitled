@@ -165,45 +165,62 @@ Please confirm this order. Thank you! 🙏`;
 
   if (orderPlaced) {
     return (
-      <div className="min-h-screen bg-zinc-50 dark:bg-black">
+      <div className="min-h-screen bg-zinc-50 dark:bg-black selection:bg-black selection:text-white">
         <Navbar />
         <main className="container mx-auto px-4 py-24">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.9, rotateX: 20 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+            style={{ perspective: 1000 }}
             className="mx-auto max-w-2xl text-center"
           >
-            <div className="mb-8 flex justify-center">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-500">
-                <CheckCircle2 className="h-12 w-12" />
-              </div>
+            <div className="mb-12 flex justify-center">
+              <motion.div 
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 10, -10, 0]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="flex h-32 w-32 items-center justify-center rounded-[3rem] bg-black text-white shadow-2xl"
+              >
+                <CheckCircle2 className="h-16 w-16" />
+              </motion.div>
             </div>
-            <h1 className="mb-4 text-4xl font-bold tracking-tight">Order Placed Successfully!</h1>
-            <p className="mb-8 text-lg text-zinc-600 dark:text-zinc-400">
-              Thank you for your order. We&apos;ve received your request and will process it shortly.
+            <h1 className="mb-6 text-6xl font-black tracking-tighter uppercase">Order Secured</h1>
+            <p className="mb-12 text-lg text-zinc-500 font-medium">
+              Your luxury pieces are being prepared. Excellence takes time, but your wait is almost over.
             </p>
             
-            <Card className="mb-8 border-dashed bg-zinc-100/50 dark:bg-zinc-900/50">
-              <CardContent className="p-8">
-                <div className="flex items-center justify-center gap-3 text-xl font-bold text-green-600">
-                  <MessageCircle className="h-6 w-6" />
-                  <span>WhatsApp Order Sent</span>
-                </div>
-                <p className="mt-4 text-sm text-zinc-500">
-                  A WhatsApp message with your order details has been prepared. Please send the message to confirm your {paymentMethod === 'cod' ? 'Cash on Delivery' : ''} order and complete your purchase.
-                </p>
-                {paymentMethod === 'cod' && (
-                  <p className="mt-2 text-xs text-zinc-400 italic">
-                    Note: Our team will also verify your delivery address via WhatsApp.
+            <motion.div 
+              whileHover={{ rotateY: 5, rotateX: -5 }}
+              style={{ perspective: 1000 }}
+            >
+              <Card className="mb-12 overflow-hidden rounded-[3rem] border-none bg-white p-1 shadow-2xl dark:bg-zinc-900">
+                <CardContent className="p-12">
+                  <div className="flex items-center justify-center gap-4 text-2xl font-black uppercase tracking-tighter">
+                    <MessageCircle className="h-8 w-8 text-green-500" />
+                    <span>WhatsApp Concierge Notified</span>
+                  </div>
+                  <p className="mt-6 text-zinc-500 font-medium leading-relaxed">
+                    A dedicated concierge has been assigned to your order. We've sent a detailed manifest to our verification center.
                   </p>
-                )}
-              </CardContent>
-            </Card>
+                  {paymentMethod === 'cod' && (
+                    <div className="mt-8 rounded-2xl bg-zinc-50 p-6 dark:bg-black/50 border border-zinc-100 dark:border-zinc-800">
+                      <p className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400 italic">
+                        Protocol: Our logistics team will initiate final address verification via WhatsApp shortly.
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </motion.div>
 
             <Link href="/">
-              <Button size="lg" className="rounded-full px-8">
-                Return to Shop
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button size="lg" className="h-20 rounded-3xl bg-black px-12 text-[10px] font-black uppercase tracking-[0.4em] text-white shadow-2xl">
+                  Return to Market
+                </Button>
+              </motion.div>
             </Link>
           </motion.div>
         </main>
@@ -212,210 +229,218 @@ Please confirm this order. Thank you! 🙏`;
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-black">
+    <div className="min-h-screen bg-zinc-50 dark:bg-black selection:bg-black selection:text-white">
       <Navbar />
-      <main className="container mx-auto px-4 py-12">
-        <div className="mb-8">
-          <Link href="/" className="flex items-center gap-2 text-sm font-medium text-zinc-500 hover:text-black dark:hover:text-white">
-            <ArrowLeft className="h-4 w-4" /> Back to Shopping
+      <main className="container mx-auto px-6 py-16">
+        <div className="mb-16">
+          <Link href="/" className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 hover:text-black dark:hover:text-white transition-all">
+            <ArrowLeft className="h-4 w-4" /> Back to Collection
           </Link>
-          <h1 className="mt-4 text-3xl font-bold">Checkout</h1>
+          <h1 className="mt-8 text-6xl font-black tracking-tighter uppercase">Checkout</h1>
         </div>
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <section>
-                <h3 className="mb-6 text-xl font-semibold">Contact Information</h3>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
+            <form onSubmit={handleSubmit} className="space-y-16">
+              <section className="space-y-10">
+                <div className="flex items-center gap-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white text-[10px] font-black">01</span>
+                  <h3 className="text-2xl font-black uppercase tracking-tighter">Personal Details</h3>
+                </div>
+                <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
+                  <div className="space-y-3">
+                    <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Full Name</Label>
                     <Input 
                       id="name" 
                       name="name" 
                       required 
-                      placeholder="John Doe" 
+                      placeholder="e.g. Alexander McQueen" 
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className="h-16 rounded-2xl border-none bg-white shadow-sm focus:ring-2 focus:ring-black dark:bg-zinc-900 transition-all"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Email Address</Label>
                     <Input 
                       id="email" 
                       name="email" 
                       type="email" 
                       required 
-                      placeholder="john@example.com" 
+                      placeholder="alexander@luxury.com" 
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className="h-16 rounded-2xl border-none bg-white shadow-sm focus:ring-2 focus:ring-black dark:bg-zinc-900 transition-all"
                     />
                   </div>
-                  <div className="space-y-2 sm:col-span-2">
-                    <Label htmlFor="phone">Phone Number</Label>
+                  <div className="space-y-3 sm:col-span-2">
+                    <Label htmlFor="phone" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Phone Number</Label>
                     <Input 
                       id="phone" 
                       name="phone" 
                       type="tel" 
                       required 
-                      placeholder="+1 (555) 000-0000" 
+                      placeholder="+44 000 000 0000" 
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="h-12"
+                      className="h-16 rounded-2xl border-none bg-white shadow-sm focus:ring-2 focus:ring-black dark:bg-zinc-900 transition-all"
                     />
                   </div>
                 </div>
               </section>
 
-              <Separator />
-
-              <section>
-                <h3 className="mb-6 text-xl font-semibold">Shipping Address</h3>
-                <div className="space-y-2">
-                  <Label htmlFor="address">Full Address</Label>
+              <section className="space-y-10">
+                <div className="flex items-center gap-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white text-[10px] font-black">02</span>
+                  <h3 className="text-2xl font-black uppercase tracking-tighter">Delivery Address</h3>
+                </div>
+                <div className="space-y-3">
+                  <Label htmlFor="address" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">Shipping Destination</Label>
                   <Textarea 
                     id="address" 
                     name="address" 
                     required 
-                    placeholder="123 Street, City, Country, ZIP" 
+                    placeholder="Penthouse 42, 5th Avenue, New York City" 
                     value={formData.address}
                     onChange={handleInputChange}
-                    className="min-h-[120px]"
+                    className="min-h-[160px] rounded-3xl border-none bg-white shadow-sm focus:ring-2 focus:ring-black dark:bg-zinc-900 transition-all p-6"
                   />
                 </div>
               </section>
 
-              <Separator />
-
-              <section>
-                <h3 className="mb-6 text-xl font-semibold">Payment Method</h3>
-                <div className="space-y-4">
-                  <button
+              <section className="space-y-10">
+                <div className="flex items-center gap-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white text-[10px] font-black">03</span>
+                  <h3 className="text-2xl font-black uppercase tracking-tighter">Payment Selection</h3>
+                </div>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <motion.button
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
                     type="button"
                     onClick={() => setPaymentMethod('cod')}
-                    className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
+                    className={`group relative overflow-hidden rounded-[2.5rem] border-none p-10 text-left transition-all shadow-xl ${
                       paymentMethod === 'cod' 
-                        ? 'border-black dark:border-white bg-zinc-50 dark:bg-zinc-900' 
-                        : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
+                        ? 'bg-black text-white' 
+                        : 'bg-white hover:bg-zinc-50 dark:bg-zinc-900'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                          paymentMethod === 'cod' ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-zinc-100 dark:bg-zinc-800'
-                        }`}>
-                          <Banknote className="h-6 w-6" />
-                        </div>
-                        <div>
-                          <p className="font-bold uppercase tracking-wider">Cash on Delivery</p>
-                          <p className="text-sm text-zinc-500">Pay when your order arrives at your doorstep</p>
-                        </div>
-                      </div>
-                      <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
-                        paymentMethod === 'cod' ? 'border-black dark:border-white' : 'border-zinc-300'
+                    <div className="relative z-10 flex flex-col gap-6">
+                      <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
+                        paymentMethod === 'cod' ? 'bg-white/20' : 'bg-zinc-100 dark:bg-zinc-800'
                       }`}>
-                        {paymentMethod === 'cod' && <div className="h-3 w-3 rounded-full bg-black dark:bg-white" />}
+                        <Banknote className="h-8 w-8" />
+                      </div>
+                      <div>
+                        <p className="text-xl font-black uppercase tracking-tighter">Cash on Delivery</p>
+                        <p className={`mt-2 text-xs font-medium ${paymentMethod === 'cod' ? 'text-white/60' : 'text-zinc-400'}`}>
+                          Premium white-glove delivery service.
+                        </p>
                       </div>
                     </div>
-                  </button>
+                  </motion.button>
 
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
                     type="button"
                     onClick={() => setPaymentMethod('whatsapp')}
-                    className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
+                    className={`group relative overflow-hidden rounded-[2.5rem] border-none p-10 text-left transition-all shadow-xl ${
                       paymentMethod === 'whatsapp' 
-                        ? 'border-green-500 bg-green-50 dark:bg-green-950/20' 
-                        : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
+                        ? 'bg-green-600 text-white' 
+                        : 'bg-white hover:bg-zinc-50 dark:bg-zinc-900'
                     }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                          paymentMethod === 'whatsapp' ? 'bg-green-500 text-white' : 'bg-zinc-100 dark:bg-zinc-800'
-                        }`}>
-                          <MessageCircle className="h-6 w-6" />
-                        </div>
-                        <div>
-                          <p className="font-bold uppercase tracking-wider">Order via WhatsApp</p>
-                          <p className="text-sm text-zinc-500">Chat with us directly to complete your order</p>
-                        </div>
-                      </div>
-                      <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
-                        paymentMethod === 'whatsapp' ? 'border-green-500' : 'border-zinc-300'
+                    <div className="relative z-10 flex flex-col gap-6">
+                      <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${
+                        paymentMethod === 'whatsapp' ? 'bg-white/20' : 'bg-zinc-100 dark:bg-zinc-800'
                       }`}>
-                        {paymentMethod === 'whatsapp' && <div className="h-3 w-3 rounded-full bg-green-500" />}
+                        <MessageCircle className="h-8 w-8" />
+                      </div>
+                      <div>
+                        <p className="text-xl font-black uppercase tracking-tighter">WhatsApp Direct</p>
+                        <p className={`mt-2 text-xs font-medium ${paymentMethod === 'whatsapp' ? 'text-white/60' : 'text-zinc-400'}`}>
+                          Instant concierge order processing.
+                        </p>
                       </div>
                     </div>
-                  </button>
+                  </motion.button>
                 </div>
               </section>
 
-              <Button 
-                type="submit" 
-                className={`w-full py-8 text-lg font-bold uppercase tracking-widest ${
-                  paymentMethod === 'whatsapp' 
-                    ? 'bg-green-500 hover:bg-green-600' 
-                    : ''
-                }`}
-                disabled={loading || cart.length === 0}
-              >
-                {loading ? 'Processing...' : paymentMethod === 'whatsapp' ? 'Order via WhatsApp' : 'Place Order'}
-              </Button>
+              <motion.div whileHover={{ scale: 1.01 }}>
+                <Button 
+                  type="submit" 
+                  className={`h-24 w-full rounded-[2.5rem] text-[10px] font-black uppercase tracking-[0.5em] shadow-2xl transition-all ${
+                    paymentMethod === 'whatsapp' 
+                      ? 'bg-green-600 hover:bg-green-700 text-white' 
+                      : 'bg-black hover:bg-zinc-800 text-white'
+                  }`}
+                  disabled={loading || cart.length === 0}
+                >
+                  {loading ? 'Validating...' : 'Confirm Luxury Purchase'}
+                </Button>
+              </motion.div>
             </form>
           </div>
 
           <div className="lg:col-span-1">
-            <Card className="sticky top-24">
-              <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <ScrollArea className="max-h-[400px]">
-                  <div className="space-y-4">
-                    {cart.map((item) => (
-                      <div key={item.id} className="flex justify-between gap-4">
-                        <div className="flex gap-3">
-                          <div className="h-12 w-12 shrink-0 overflow-hidden rounded border">
-                            <img src={item.image_url} alt={item.name} className="h-full w-full object-cover" />
+            <motion.div 
+              style={{ perspective: 1000 }}
+              initial={{ rotateY: 5 }}
+              animate={{ rotateY: 0 }}
+              className="sticky top-32"
+            >
+              <Card className="overflow-hidden rounded-[3rem] border-none bg-white shadow-[0_50px_100px_rgba(0,0,0,0.1)] dark:bg-zinc-900">
+                <CardHeader className="p-10 pb-0">
+                  <CardTitle className="text-2xl font-black uppercase tracking-tighter">Your Manifest</CardTitle>
+                </CardHeader>
+                <CardContent className="p-10 space-y-10">
+                  <ScrollArea className="max-h-[400px]">
+                    <div className="space-y-8">
+                      {cart.map((item) => (
+                        <div key={item.id} className="flex justify-between gap-6">
+                          <div className="flex gap-4">
+                            <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl shadow-md">
+                              <img src={item.image_url} alt={item.name} className="h-full w-full object-cover" />
+                            </div>
+                            <div className="flex flex-col justify-center">
+                              <p className="text-[10px] font-black uppercase tracking-tighter leading-tight">{item.name}</p>
+                              <p className="mt-1 text-[10px] font-black text-zinc-400">QTY: {item.quantity}</p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="text-sm font-medium leading-tight">{item.name}</p>
-                            <p className="text-xs text-zinc-500">Qty: {item.quantity}</p>
-                          </div>
+                          <p className="flex items-center text-sm font-black">$ {(item.price * item.quantity).toFixed(2)}</p>
                         </div>
-                        <p className="text-sm font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+                  </ScrollArea>
+                  
+                  <Separator className="bg-zinc-100 dark:bg-zinc-800" />
+                  
+                  <div className="space-y-4">
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+                      <span>Subtotal</span>
+                      <span>$ {cartTotal.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+                      <span>Logistics</span>
+                      <span className="text-green-500">Complimentary</span>
+                    </div>
+                    <Separator className="my-6 bg-zinc-100 dark:bg-zinc-800" />
+                    <div className="flex justify-between items-end">
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em]">Total Investment</span>
+                      <span className="text-4xl font-black tracking-tighter">$ {cartTotal.toFixed(2)}</span>
+                    </div>
                   </div>
-                </ScrollArea>
-                
-                <Separator />
-                
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm text-zinc-500">
-                    <span>Subtotal</span>
-                    <span>${cartTotal.toFixed(2)}</span>
+                </CardContent>
+                <CardFooter className="flex-col gap-6 bg-zinc-50 p-10 dark:bg-black/50">
+                  <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400">
+                    <ShieldCheck className="h-5 w-5" />
+                    Encrypted Transaction
                   </div>
-                  <div className="flex justify-between text-sm text-zinc-500">
-                    <span>Shipping</span>
-                    <span>FREE</span>
-                  </div>
-                  <Separator className="my-2" />
-                  <div className="flex justify-between text-lg font-bold">
-                    <span>Total</span>
-                    <span>${cartTotal.toFixed(2)}</span>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="flex-col gap-4 bg-zinc-50 p-6 dark:bg-zinc-900">
-                <div className="flex items-center gap-2 text-xs text-zinc-500">
-                  <ShieldCheck className="h-4 w-4" />
-                  Secure Checkout
-                </div>
-              </CardFooter>
-            </Card>
+                </CardFooter>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </main>

@@ -281,11 +281,14 @@ export default function HomeClient({ products }: HomeClientProps) {
                     <span className="w-6 text-center text-xl font-black">1</span>
                     <button className="text-zinc-400 hover:text-black transition-colors"><Plus className="h-5 w-5" /></button>
                   </div>
-                  <motion.div className="flex-1" whileHover={{ scale: 1.02, y: -5 }}>
-                    <Button className="h-20 w-full rounded-3xl bg-black text-xs font-black uppercase tracking-[0.3em] text-white hover:bg-zinc-800 shadow-2xl transition-all">
-                      Add to Luxury Cart
-                    </Button>
-                  </motion.div>
+                    <motion.div className="flex-1" whileHover={{ scale: 1.02, y: -5 }}>
+                      <Button 
+                        onClick={() => addToCart(featuredProduct)}
+                        className="h-20 w-128 rounded-3xl bg-black text-xs font-black uppercase tracking-[0.3em] text-white hover:bg-zinc-800 shadow-2xl transition-all"
+                      >
+                        Add to Luxury Cart
+                      </Button>
+                    </motion.div>
                 </div>
               </div>
             </div>

@@ -22,6 +22,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import HomeClient from '@/components/HomeClient';
 
 async function getProducts() {
   const { data, error } = await supabase

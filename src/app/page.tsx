@@ -322,7 +322,7 @@ export default async function Home() {
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {[
-              { name: "Eliza Thompson", role: "Model", content: "I've been looking for sustainable yet stylish pieces for ages. AURA has completely transformed my wardrobe with their ethical approach." },
+              { name: "Eliza Thompson", role: "Model", content: "I've been looking for sustainable yet stylish pieces for ages. Luxe Market has completely transformed my wardrobe with their ethical approach." },
               { name: "Sophia Miller", role: "Designer", content: "The quality of the fabrics is exceptional. You can really tell the difference when something is made with care and attention to detail." },
               { name: "James Wilson", role: "Stylist", content: "Their customer service is top-notch. Fast shipping and the packaging is beautiful - makes for a great unboxing experience." }
             ].map((t, i) => (
@@ -342,7 +342,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 gap-16 md:grid-cols-4 lg:grid-cols-5">
             <div className="md:col-span-2 lg:col-span-2">
-              <h2 className="mb-8 text-4xl font-serif tracking-tight">AURA</h2>
+              <h2 className="mb-8 text-4xl font-serif tracking-tight">Luxe Market</h2>
               <p className="mb-8 max-w-xs text-zinc-500 text-sm leading-relaxed">
                 Crafting premium lifestyle goods since 2024. We believe in simplicity, quality, and the beauty of well-designed objects.
               </p>
@@ -381,7 +381,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="mt-24 border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-            <div>© 2024 AURA LIFESTYLE STORE. ALL RIGHTS RESERVED.</div>
+            <div>© 2024 LUXE MARKET LIFESTYLE STORE. ALL RIGHTS RESERVED.</div>
             <div className="flex gap-6">
               <span>English</span>
               <span>United States (USD $)</span>

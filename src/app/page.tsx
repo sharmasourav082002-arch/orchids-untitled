@@ -46,61 +46,104 @@ export default async function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 selection:bg-black selection:text-white">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <section className="relative h-[90vh] w-full overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
-            alt="Hero" 
-            className="h-full w-full object-cover object-center scale-105 animate-subtle-zoom"
+      <div className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-black selection:text-white dark:bg-black dark:text-white">
+        <Navbar />
+        
+        {/* Hero Section */}
+        <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 z-0"
+          >
+            <motion.img 
+              initial={{ scale: 1.2, rotate: -2 }}
+              animate={{ 
+                scale: 1, 
+                rotate: 0,
+                y: [0, -20, 0],
+                transition: { duration: 20, repeat: Infinity, ease: "linear" }
+              }}
+              src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" 
+              alt="Hero" 
+              className="h-full w-full object-cover object-center brightness-75"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
+          </motion.div>
+
+          <div className="container relative z-10 px-4 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 50, rotateX: 45 }}
+              animate={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              style={{ perspective: 2000 }}
+            >
+              <h2 className="mb-4 text-xs font-black uppercase tracking-[0.5em] text-white/80">Parisian Chic • Est. 2024</h2>
+              <h1 className="mb-8 text-7xl font-black tracking-tighter sm:text-[10rem] text-white leading-none drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                LUXE<br />MARKET
+              </h1>
+              <p className="mx-auto mb-12 max-w-xl text-lg text-white/70 font-medium tracking-wide">
+                Experience the pinnacle of ethical luxury. Our new collection defines the modern silhouette with premium, sustainable materials.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+                  <Button className="rounded-2xl bg-white px-12 py-8 text-sm font-black uppercase tracking-widest text-black hover:bg-zinc-100 shadow-[0_20px_40px_rgba(255,255,255,0.2)]">
+                    Explore Shop
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.05, y: -5 }} whileTap={{ scale: 0.95 }}>
+                  <Button variant="outline" className="rounded-2xl border-white/30 backdrop-blur-md px-12 py-8 text-sm font-black uppercase tracking-widest text-white hover:bg-white hover:text-black shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
+                    Collections
+                  </Button>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Floating Elements for 3D Depth */}
+          <motion.div 
+            animate={{ 
+              y: [0, -30, 0], 
+              rotate: [0, 10, 0],
+              transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="absolute top-1/4 right-10 h-32 w-32 rounded-3xl bg-white/5 backdrop-blur-3xl border border-white/10 hidden lg:block"
           />
-          <div className="absolute inset-0 bg-black/10" />
-        </div>
-        <div className="container relative flex h-full items-center justify-start px-4">
-          <div className="max-w-xl text-white">
-            <h2 className="mb-2 text-sm font-bold uppercase tracking-[0.3em] opacity-90">Parisian Chic</h2>
-            <h1 className="mb-6 text-6xl font-serif tracking-tight sm:text-8xl">
-              Luxury <br />Paradise
-            </h1>
-            <p className="mb-8 max-w-md text-lg text-white/80">
-              New collection of exclusive designs, ethically made with premium materials for the modern woman.
-            </p>
-            <div className="flex gap-4">
-              <Button className="rounded-none bg-white px-8 py-6 text-xs font-bold uppercase tracking-widest text-black hover:bg-zinc-200">
-                Shop Now
-              </Button>
-              <Button variant="outline" className="rounded-none border-white px-8 py-6 text-xs font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black">
-                View More
-              </Button>
+          <motion.div 
+            animate={{ 
+              y: [0, 40, 0], 
+              rotate: [0, -20, 0],
+              transition: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }
+            }}
+            className="absolute bottom-1/4 left-10 h-48 w-48 rounded-[3rem] bg-white/5 backdrop-blur-3xl border border-white/10 hidden lg:block"
+          />
+        </section>
+
+        {/* Features Bar with Depth */}
+        <section className="relative z-20 -mt-12 py-12">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+              {[
+                { icon: <Truck className="h-6 w-6" />, title: "Free Shipping", desc: "Worldwide Delivery" },
+                { icon: <Headphones className="h-6 w-6" />, title: "24/7 Concierge", desc: "Expert Assistance" },
+                { icon: <RotateCcw className="h-6 w-6" />, title: "Seamless Returns", desc: "30-Day Guarantee" },
+                { icon: <ShieldCheck className="h-6 w-6" />, title: "Insured Checkout", desc: "Secure Payments" },
+              ].map((f, i) => (
+                <motion.div 
+                  key={i} 
+                  whileHover={{ y: -10, rotateY: 10 }}
+                  className="flex flex-col items-center text-center gap-4 p-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-2xl rounded-3xl border border-white dark:border-zinc-800 shadow-xl"
+                >
+                  <div className="p-4 bg-zinc-50 dark:bg-zinc-800 rounded-2xl shadow-inner text-zinc-900 dark:text-white">{f.icon}</div>
+                  <div>
+                    <h4 className="text-xs font-black uppercase tracking-widest text-zinc-900 dark:text-white">{f.title}</h4>
+                    <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest mt-1">{f.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Features Bar */}
-      <section className="border-b py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {[
-              { icon: <Truck className="h-5 w-5" />, title: "Free Shipping", desc: "On orders over $149" },
-              { icon: <Headphones className="h-5 w-5" />, title: "Support 24/7", desc: "Dedicated help center" },
-              { icon: <RotateCcw className="h-5 w-5" />, title: "30 Days Return", desc: "Easy returns policy" },
-              { icon: <ShieldCheck className="h-5 w-5" />, title: "Payment Secure", desc: "100% protected payments" },
-            ].map((f, i) => (
-              <div key={i} className="flex flex-col items-center text-center gap-3">
-                <div className="text-zinc-400">{f.icon}</div>
-                <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest">{f.title}</h4>
-                  <p className="text-[10px] text-zinc-400 uppercase tracking-[0.1em] mt-1">{f.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
       {/* Category Split Section */}
       <section className="py-24">

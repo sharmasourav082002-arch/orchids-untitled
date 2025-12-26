@@ -2,41 +2,30 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ShoppingBag, Menu, X, Trash2, Plus, Minus, Search, User } from 'lucide-react';
+import { ShoppingBag, Menu, Search, User } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-  SheetFooter,
-} from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export function Navbar() {
   const { cartCount, openDrawer } = useCart();
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-white/70 backdrop-blur-xl dark:bg-black/70 shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-500">
+    <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-zinc-950/50 backdrop-blur-2xl border-b border-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.3)]">
       <div className="container mx-auto flex h-24 items-center justify-between px-6">
         {/* Left Side: Mobile Menu & Search */}
         <div className="flex items-center gap-6">
-          <Button variant="ghost" size="icon" className="md:hidden">
+          <Button variant="ghost" size="icon" className="md:hidden text-white hover:bg-white/10">
             <Menu className="h-6 w-6" />
           </Button>
           <motion.div whileHover={{ scale: 1.1, rotate: 5 }}>
-            <Button variant="ghost" size="icon" className="hidden md:flex bg-zinc-50 dark:bg-zinc-900 rounded-full h-12 w-12 shadow-inner">
+            <Button variant="ghost" size="icon" className="hidden md:flex bg-white/5 hover:bg-white/10 rounded-full h-12 w-12 border border-white/10 text-white">
               <Search className="h-5 w-5" />
             </Button>
           </motion.div>
-          <div className="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
-            <Link href="#" className="hover:text-black dark:hover:text-white transition-all hover:tracking-[0.3em]">Discover</Link>
-            <Link href="#" className="hover:text-black dark:hover:text-white transition-all hover:tracking-[0.3em]">Shop</Link>
+          <div className="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
+            <Link href="#" className="hover:text-white transition-all hover:tracking-[0.3em]">Discover</Link>
+            <Link href="#" className="hover:text-white transition-all hover:tracking-[0.3em]">Shop</Link>
           </div>
         </div>
 
@@ -44,7 +33,7 @@ export function Navbar() {
         <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <motion.div 
             whileHover={{ scale: 1.05, letterSpacing: "0.2em" }}
-            className="text-3xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-black via-zinc-500 to-black dark:from-white dark:via-zinc-400 dark:to-white drop-shadow-2xl"
+            className="text-3xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-400 to-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
           >
             LUXE MARKET
           </motion.div>
@@ -53,7 +42,7 @@ export function Navbar() {
         {/* Right Side: Account & Cart */}
         <div className="flex items-center gap-3 md:gap-6">
           <motion.div whileHover={{ scale: 1.1, rotate: -5 }}>
-            <Button variant="ghost" size="icon" className="hidden md:flex bg-zinc-50 dark:bg-zinc-900 rounded-full h-12 w-12 shadow-inner">
+            <Button variant="ghost" size="icon" className="hidden md:flex bg-white/5 hover:bg-white/10 rounded-full h-12 w-12 border border-white/10 text-white">
               <User className="h-5 w-5" />
             </Button>
           </motion.div>
@@ -63,13 +52,17 @@ export function Navbar() {
               variant="ghost" 
               size="icon" 
               onClick={openDrawer}
-              className="relative h-14 w-14 rounded-2xl bg-black text-white dark:bg-white dark:text-black shadow-[0_10px_20px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_20px_rgba(255,255,255,0.1)] transition-transform active:scale-95"
+              className="relative h-14 w-14 rounded-2xl bg-white text-black hover:bg-zinc-200 shadow-[0_10px_30px_rgba(255,255,255,0.2)] transition-transform active:scale-95"
             >
               <ShoppingBag className="h-6 w-6" />
               {cartCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-[10px] font-black text-white border-4 border-white dark:border-black shadow-lg">
+                <motion.span 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 text-[10px] font-black text-black border-2 border-zinc-950 shadow-lg"
+                >
                   {cartCount}
-                </span>
+                </motion.span>
               )}
             </Button>
           </motion.div>

@@ -314,24 +314,20 @@ Please confirm this order. Thank you! 🙏`;
                     </button>
                   </div>
                 </section>
-                      <p className="text-sm text-zinc-500">Pay when your order arrives at your doorstep.</p>
-                    </div>
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black">
-                      <div className="h-2 w-2 rounded-full bg-current" />
-                    </div>
-                  </div>
-                </div>
-              </section>
 
-              <Button 
-                type="submit" 
-                className="w-full py-8 text-lg font-bold uppercase tracking-widest"
-                disabled={loading || cart.length === 0}
-              >
-                {loading ? 'Processing...' : 'Place Order'}
-              </Button>
-            </form>
-          </div>
+                <Button 
+                  type="submit" 
+                  className={`w-full py-8 text-lg font-bold uppercase tracking-widest ${
+                    paymentMethod === 'whatsapp' 
+                      ? 'bg-green-500 hover:bg-green-600' 
+                      : ''
+                  }`}
+                  disabled={loading || cart.length === 0}
+                >
+                  {loading ? 'Processing...' : paymentMethod === 'whatsapp' ? 'Order via WhatsApp' : 'Place Order'}
+                </Button>
+              </form>
+            </div>
 
           {/* Order Summary */}
           <div className="lg:col-span-1">

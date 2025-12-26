@@ -15,7 +15,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Navbar } from '@/Navbar';
+import { Navbar } from '@/components/Navbar';
 import { ProductCard } from '@/components/ProductCard';
 import { CartDrawer } from '@/components/CartDrawer';
 import { useCart } from '@/context/CartContext';

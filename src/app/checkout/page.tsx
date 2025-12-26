@@ -62,7 +62,7 @@ export default function CheckoutPage() {
     
     const methodDisplay = method === 'cod' ? 'Cash on Delivery' : 'WhatsApp Order';
     
-    const message = `🛍️ *New Order from AURA*
+    const message = `🛍️ *New Order from LUXE MARKET*
 
 *Order ID:* ${orderId}
 

@@ -11,14 +11,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/lib/supabase';
-import { CheckCircle2, ShoppingBag, ArrowLeft, Phone } from 'lucide-react';
+import { CheckCircle2, ShoppingBag, ArrowLeft, Phone, MessageCircle, Banknote } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const WHATSAPP_NUMBER = '+447448071922';
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<'cod' | 'whatsapp'>('cod');
   const [formData, setFormData] = useState({
     name: '',
     email: '',

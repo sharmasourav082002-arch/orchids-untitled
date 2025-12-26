@@ -11,12 +11,16 @@ interface Product {
   name: string;
   description: string;
   price: number;
+  original_price?: number;
   image_url: string;
   category?: string;
 }
 
 export function ProductCard({ product }: { product: Product }) {
   const { addToCart } = useCart();
+  const discount = product.original_price 
+    ? Math.round(((product.original_price - product.price) / product.original_price) * 100) 
+    : 0;
 
   return (
     <motion.div 
@@ -71,17 +75,29 @@ export function ProductCard({ product }: { product: Product }) {
           </motion.div>
         </div>
 
-        {/* Premium Badge */}
-        {product.price > 100 && (
-          <motion.div 
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            className="absolute left-4 top-4 flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 backdrop-blur-md px-4 py-2 text-[9px] font-black uppercase tracking-widest text-black rounded-full shadow-lg"
-          >
-            <Sparkles className="h-3 w-3" />
-            Premium
-          </motion.div>
-        )}
+        {/* Premium & Discount Badges */}
+        <div className="absolute left-4 top-4 flex flex-col gap-2">
+          {product.price > 500 && (
+            <motion.div 
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 backdrop-blur-md px-4 py-2 text-[9px] font-black uppercase tracking-widest text-black rounded-full shadow-lg"
+            >
+              <Sparkles className="h-3 w-3" />
+              Premium
+            </motion.div>
+          )}
+          {discount > 0 && (
+            <motion.div 
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.1 }}
+              className="flex items-center gap-2 bg-white backdrop-blur-md px-4 py-2 text-[9px] font-black uppercase tracking-widest text-black rounded-full shadow-lg border border-white/50"
+            >
+              {discount}% OFF
+            </motion.div>
+          )}
+        </div>
 
         {/* 3D Floating Element */}
         <motion.div 
@@ -95,12 +111,19 @@ export function ProductCard({ product }: { product: Product }) {
         <h3 className="text-sm font-black uppercase tracking-widest text-white group-hover:text-amber-400 transition-colors">
           {product.name}
         </h3>
-        <motion.p 
-          className="mt-3 text-xl font-black text-white"
-          whileHover={{ scale: 1.1 }}
-        >
-          ${product.price.toFixed(2)}
-        </motion.p>
+        <div className="mt-3 flex items-center justify-center gap-3">
+          <motion.p 
+            className="text-xl font-black text-white"
+            whileHover={{ scale: 1.1 }}
+          >
+            ₹{Number(product.price).toLocaleString('en-IN')}
+          </motion.p>
+          {product.original_price && (
+            <p className="text-sm font-medium text-zinc-500 line-through">
+              ₹{Number(product.original_price).toLocaleString('en-IN')}
+            </p>
+          )}
+        </div>
         
         {/* Color Swatches with 3D Effect */}
         <div className="mt-5 flex justify-center gap-3">

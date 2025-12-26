@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     
     const methodDisplay = body.paymentMethod === 'cash_on_delivery' ? 'Cash on Delivery' : 'WhatsApp Order';
     
-    const message = `🛍️ *New Order from AURA*
+      const message = `🛍️ *New Order from LUXE MARKET*
 
 *Order ID:* ${body.orderId}
 

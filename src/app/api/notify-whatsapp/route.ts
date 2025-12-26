@@ -27,60 +27,68 @@ export async function POST(request: NextRequest) {
       `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
     ).join('\n');
     
-    const methodDisplay = body.paymentMethod === 'cash_on_delivery' ? 'Cash on Delivery' : 'WhatsApp Order';
+    const methodDisplay = body.paymentMethod === 'cash_on_delivery' ? '💵 Cash on Delivery' : '📱 WhatsApp Order';
     
-      const message = `🛍️ *New Order from LUXE MARKET*
+    const message = `🛍️ *NEW LUXE MARKET ORDER*
 
-*Order ID:* ${body.orderId}
+━━━━━━━━━━━━━━━━━━━━
+📦 *Order #${body.orderId.slice(0, 8).toUpperCase()}*
+━━━━━━━━━━━━━━━━━━━━
 
-*Customer Details:*
-Name: ${body.customerName}
-Email: ${body.customerEmail}
-Phone: ${body.customerPhone}
+👤 *Customer:*
+${body.customerName}
+📧 ${body.customerEmail}
+📞 ${body.customerPhone}
 
-*Shipping Address:*
+📍 *Delivery Address:*
 ${body.address}
 
-*Order Items:*
+🛒 *Items Ordered:*
 ${itemsList}
 
-*Total Amount:* $${body.total.toFixed(2)}
+━━━━━━━━━━━━━━━━━━━━
+💰 *TOTAL: $${body.total.toFixed(2)}*
+${methodDisplay}
+━━━━━━━━━━━━━━━━━━━━
 
-*Payment Method:* ${methodDisplay}`;
+⏰ ${new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`;
 
-    // Get API key from environment or use CallMeBot
     const apiKey = process.env.CALLMEBOT_API_KEY;
     
     if (apiKey) {
-      // Use CallMeBot API to send automatic WhatsApp notification
       const encodedMessage = encodeURIComponent(message);
       const phoneNumber = WHATSAPP_NUMBER.replace(/[^0-9+]/g, '');
       const url = `https://api.callmebot.com/whatsapp.php?phone=${phoneNumber}&text=${encodedMessage}&apikey=${apiKey}`;
       
-      const response = await fetch(url);
-      const responseText = await response.text();
+      const response = await fetch(url, { 
+        method: 'GET',
+        headers: { 'Accept': 'text/plain' }
+      });
       
       if (!response.ok) {
-        console.error('CallMeBot API error:', responseText);
+        console.error('CallMeBot API error');
         return NextResponse.json({ 
-          success: false, 
-          error: 'Failed to send WhatsApp notification',
+          success: true, 
+          method: 'manual',
           fallback: true 
-        }, { status: 200 });
+        });
       }
       
       return NextResponse.json({ success: true, method: 'automatic' });
     }
     
-    // If no API key, return success but indicate manual fallback needed
     return NextResponse.json({ 
       success: true, 
       method: 'manual',
-      message: 'No CallMeBot API key configured. Using manual WhatsApp redirect.'
+      whatsappUrl: `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`
     });
     
   } catch (error) {
     console.error('Error in notify-whatsapp:', error);
-    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ 
+      success: true, 
+      method: 'manual',
+      error: 'Fallback to manual notification'
+    });
   }
 }

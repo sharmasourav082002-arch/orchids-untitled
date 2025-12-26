@@ -34,6 +34,35 @@ export default function CheckoutPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const generateWhatsAppMessage = (orderId: string) => {
+    const itemsList = cart.map(item => 
+      `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
+    ).join('\n');
+    
+    const message = `🛍️ *New Order from AURA*
+
+*Order ID:* ${orderId}
+
+*Customer Details:*
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+*Shipping Address:*
+${formData.address}
+
+*Order Items:*
+${itemsList}
+
+*Total Amount:* $${cartTotal.toFixed(2)}
+
+*Payment Method:* WhatsApp Order
+
+Please confirm this order. Thank you! 🙏`;
+
+    return encodeURIComponent(message);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (cart.length === 0) return;
@@ -41,7 +70,6 @@ export default function CheckoutPage() {
     setLoading(true);
 
     try {
-      // 1. Create order
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -50,7 +78,7 @@ export default function CheckoutPage() {
           customer_phone: formData.phone,
           shipping_address: formData.address,
           total_amount: cartTotal,
-          payment_method: 'cash_on_delivery',
+          payment_method: paymentMethod === 'cod' ? 'cash_on_delivery' : 'whatsapp',
           status: 'pending'
         })
         .select()
@@ -58,7 +86,6 @@ export default function CheckoutPage() {
 
       if (orderError) throw orderError;
 
-      // 2. Create order items
       const orderItems = cart.map((item) => ({
         order_id: order.id,
         product_id: item.id,
@@ -71,6 +98,12 @@ export default function CheckoutPage() {
         .insert(orderItems);
 
       if (itemsError) throw itemsError;
+
+      if (paymentMethod === 'whatsapp') {
+        const whatsappMessage = generateWhatsAppMessage(order.id);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
+        window.parent.postMessage({ type: "OPEN_EXTERNAL_URL", data: { url: whatsappUrl } }, "*");
+      }
 
       setOrderPlaced(true);
       clearCart();

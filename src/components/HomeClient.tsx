@@ -15,8 +15,10 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '@/Navbar';
 import { ProductCard } from '@/components/ProductCard';
+import { CartDrawer } from '@/components/CartDrawer';
+import { useCart } from '@/context/CartContext';
 
 interface Product {
   id: string;
@@ -31,7 +33,10 @@ interface HomeClientProps {
 }
 
 export default function HomeClient({ products }: HomeClientProps) {
+  const { addToCart } = useCart();
+  
   const featuredProduct = products[0] || {
+    id: "featured-1",
     name: "Light Jumpsuit",
     price: 84.00,
     description: "Ethically made from luxurious materials and delicate knits. Designed for the adventurous yet elegant woman who appreciates the finer things in life.",
@@ -41,6 +46,7 @@ export default function HomeClient({ products }: HomeClientProps) {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900 selection:bg-black selection:text-white dark:bg-black dark:text-white">
       <Navbar />
+      <CartDrawer />
       
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">

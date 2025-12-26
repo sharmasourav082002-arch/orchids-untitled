@@ -406,9 +406,15 @@ export default function HomeClient({ products }: HomeClientProps) {
                   </div>
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Trusted by 5,000+ Clients</span>
                 </div>
-                <h2 className="text-8xl font-black tracking-tighter uppercase bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">{featuredProduct.name}</h2>
-                <p className="text-5xl font-black tracking-tighter text-white">$ {featuredProduct.price.toFixed(2)}</p>
-                <p className="max-w-md text-zinc-400 font-medium leading-relaxed text-xl">
+                  <h2 className="text-8xl font-black tracking-tighter uppercase bg-gradient-to-r from-white to-zinc-500 bg-clip-text text-transparent">{featuredProduct.name}</h2>
+                  <div className="flex items-center gap-6">
+                    <p className="text-5xl font-black tracking-tighter text-white">₹{Number(featuredProduct.price).toLocaleString('en-IN')}</p>
+                    {featuredProduct.original_price && (
+                      <p className="text-2xl font-black text-zinc-500 line-through">₹{Number(featuredProduct.original_price).toLocaleString('en-IN')}</p>
+                    )}
+                  </div>
+                  <p className="max-w-md text-zinc-400 font-medium leading-relaxed text-xl">
+
                   {featuredProduct.description}
                 </p>
               </div>

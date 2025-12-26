@@ -156,7 +156,7 @@ export function CartDrawer() {
                 </Button>
                 <Button asChild onClick={closeDrawer} className="h-14 rounded-xl bg-black dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-200 text-[10px] font-black uppercase tracking-widest gap-2">
                   <Link href="/checkout">
-                    <CreditCard className="h-4 w-4" />
+                    <Lock className="h-4 w-4" />
                     Check out
                   </Link>
                 </Button>

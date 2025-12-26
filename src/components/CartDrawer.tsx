@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Plus, Minus, Trash2, ShoppingBag, CreditCard, MessageSquare, Truck } from 'lucide-react';
+import { X, Plus, Minus, Trash2, ShoppingBag, CreditCard, MessageSquare, Truck, Lock } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';

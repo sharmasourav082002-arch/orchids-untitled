@@ -43,7 +43,7 @@ export function Navbar() {
 
         {/* Center: Logo */}
         <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-3xl font-serif tracking-tight">
-          AURA
+          LUXE MARKET
         </Link>
 
         {/* Right Side: Account & Cart */}

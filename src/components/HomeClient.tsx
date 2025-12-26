@@ -29,6 +29,7 @@ interface Product {
   id: string;
   name: string;
   price: number;
+  original_price?: number;
   description: string;
   image_url: string;
 }
@@ -43,7 +44,8 @@ export default function HomeClient({ products }: HomeClientProps) {
   const featuredProduct = products[0] || {
     id: "featured-1",
     name: "Light Jumpsuit",
-    price: 84.00,
+    price: 899,
+    original_price: 1199,
     description: "Ethically made from luxurious materials and delicate knits. Designed for the adventurous yet elegant woman who appreciates the finer things in life.",
     image_url: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
   };

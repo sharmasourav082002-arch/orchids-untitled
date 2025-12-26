@@ -54,10 +54,12 @@ export default function CheckoutPage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const generateWhatsAppMessage = (orderId: string) => {
+  const generateWhatsAppMessage = (orderId: string, method: string) => {
     const itemsList = cart.map(item => 
       `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
     ).join('\n');
+    
+    const methodDisplay = method === 'cod' ? 'Cash on Delivery' : 'WhatsApp Order';
     
     const message = `🛍️ *New Order from AURA*
 
@@ -76,7 +78,7 @@ ${itemsList}
 
 *Total Amount:* $${cartTotal.toFixed(2)}
 
-*Payment Method:* WhatsApp Order
+*Payment Method:* ${methodDisplay}
 
 Please confirm this order. Thank you! 🙏`;
 
@@ -119,11 +121,10 @@ Please confirm this order. Thank you! 🙏`;
 
       if (itemsError) throw itemsError;
 
-      if (paymentMethod === 'whatsapp') {
-        const whatsappMessage = generateWhatsAppMessage(order.id);
-        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
-        window.parent.postMessage({ type: "OPEN_EXTERNAL_URL", data: { url: whatsappUrl } }, "*");
-      }
+      // Always send WhatsApp message for both COD and WhatsApp payment methods
+      const whatsappMessage = generateWhatsAppMessage(order.id, paymentMethod);
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
+      window.parent.postMessage({ type: "OPEN_EXTERNAL_URL", data: { url: whatsappUrl } }, "*");
 
       setOrderPlaced(true);
       clearCart();

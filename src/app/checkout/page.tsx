@@ -252,12 +252,68 @@ Please confirm this order. Thank you! 🙏`;
 
               <Separator />
 
-              <section>
-                <h3 className="mb-6 text-xl font-semibold">Payment Method</h3>
-                <div className="rounded-lg border-2 border-black p-6 dark:border-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-bold uppercase tracking-wider">Cash on Delivery</p>
+                <section>
+                  <h3 className="mb-6 text-xl font-semibold">Payment Method</h3>
+                  <div className="space-y-4">
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('cod')}
+                      className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
+                        paymentMethod === 'cod' 
+                          ? 'border-black dark:border-white bg-zinc-50 dark:bg-zinc-900' 
+                          : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                            paymentMethod === 'cod' ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-zinc-100 dark:bg-zinc-800'
+                          }`}>
+                            <Banknote className="h-6 w-6" />
+                          </div>
+                          <div>
+                            <p className="font-bold uppercase tracking-wider">Cash on Delivery</p>
+                            <p className="text-sm text-zinc-500">Pay when your order arrives at your doorstep</p>
+                          </div>
+                        </div>
+                        <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
+                          paymentMethod === 'cod' ? 'border-black dark:border-white' : 'border-zinc-300'
+                        }`}>
+                          {paymentMethod === 'cod' && <div className="h-3 w-3 rounded-full bg-black dark:bg-white" />}
+                        </div>
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod('whatsapp')}
+                      className={`w-full rounded-lg border-2 p-6 text-left transition-all ${
+                        paymentMethod === 'whatsapp' 
+                          ? 'border-green-500 bg-green-50 dark:bg-green-950/20' 
+                          : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                            paymentMethod === 'whatsapp' ? 'bg-green-500 text-white' : 'bg-zinc-100 dark:bg-zinc-800'
+                          }`}>
+                            <MessageCircle className="h-6 w-6" />
+                          </div>
+                          <div>
+                            <p className="font-bold uppercase tracking-wider">Order via WhatsApp</p>
+                            <p className="text-sm text-zinc-500">Chat with us directly to complete your order</p>
+                          </div>
+                        </div>
+                        <div className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
+                          paymentMethod === 'whatsapp' ? 'border-green-500' : 'border-zinc-300'
+                        }`}>
+                          {paymentMethod === 'whatsapp' && <div className="h-3 w-3 rounded-full bg-green-500" />}
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </section>
                       <p className="text-sm text-zinc-500">Pay when your order arrives at your doorstep.</p>
                     </div>
                     <div className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-white dark:bg-white dark:text-black">

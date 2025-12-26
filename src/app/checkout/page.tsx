@@ -135,18 +135,32 @@ Please confirm this order. Thank you! 🙏`;
               Thank you for your order. We've received your request and will process it shortly.
             </p>
             
-            <Card className="mb-8 border-dashed bg-zinc-100/50 dark:bg-zinc-900/50">
-              <CardContent className="p-8">
-                <div className="flex items-center justify-center gap-3 text-xl font-bold">
-                  <Phone className="h-6 w-6 text-zinc-500" />
-                  <span>+447448071922</span>
-                </div>
-                <p className="mt-4 text-sm text-zinc-500">
-                  Our team will contact you at this number to confirm your <strong>Cash on Delivery</strong> order. 
-                  Please keep your phone active.
-                </p>
-              </CardContent>
-            </Card>
+              <Card className="mb-8 border-dashed bg-zinc-100/50 dark:bg-zinc-900/50">
+                <CardContent className="p-8">
+                  {paymentMethod === 'whatsapp' ? (
+                    <>
+                      <div className="flex items-center justify-center gap-3 text-xl font-bold text-green-600">
+                        <MessageCircle className="h-6 w-6" />
+                        <span>WhatsApp Order Sent</span>
+                      </div>
+                      <p className="mt-4 text-sm text-zinc-500">
+                        A WhatsApp message with your order details has been prepared. Complete the order by sending the message to confirm your purchase.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-center gap-3 text-xl font-bold">
+                        <Phone className="h-6 w-6 text-zinc-500" />
+                        <span>{WHATSAPP_NUMBER}</span>
+                      </div>
+                      <p className="mt-4 text-sm text-zinc-500">
+                        Our team will contact you at this number to confirm your <strong>Cash on Delivery</strong> order. 
+                        Please keep your phone active.
+                      </p>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
 
             <Link href="/">
               <Button size="lg" className="rounded-full px-8">

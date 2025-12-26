@@ -92,6 +92,8 @@ Please confirm this order. Thank you! 🙏`;
     setLoading(true);
 
     try {
+      const paymentMethodValue = paymentMethod === 'cod' ? 'cash_on_delivery' : 'whatsapp';
+      
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
@@ -100,7 +102,7 @@ Please confirm this order. Thank you! 🙏`;
           customer_phone: formData.phone,
           shipping_address: formData.address,
           total_amount: cartTotal,
-          payment_method: paymentMethod === 'cod' ? 'cash_on_delivery' : 'whatsapp',
+          payment_method: paymentMethodValue,
           status: 'pending'
         })
         .select()
@@ -121,10 +123,34 @@ Please confirm this order. Thank you! 🙏`;
 
       if (itemsError) throw itemsError;
 
-      // Always send WhatsApp message for both COD and WhatsApp payment methods
-      const whatsappMessage = generateWhatsAppMessage(order.id, paymentMethod);
-      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
-      window.parent.postMessage({ type: "OPEN_EXTERNAL_URL", data: { url: whatsappUrl } }, "*");
+      // Send automatic WhatsApp notification to store owner
+      const notifyResponse = await fetch('/api/notify-whatsapp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: order.id,
+          customerName: formData.name,
+          customerEmail: formData.email,
+          customerPhone: formData.phone,
+          address: formData.address,
+          items: cart.map(item => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price
+          })),
+          total: cartTotal,
+          paymentMethod: paymentMethodValue
+        })
+      });
+
+      const notifyResult = await notifyResponse.json();
+
+      // If automatic notification failed or not configured, open WhatsApp for customer to send
+      if (notifyResult.method === 'manual' || notifyResult.fallback) {
+        const whatsappMessage = generateWhatsAppMessage(order.id, paymentMethod);
+        const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/[^0-9]/g, '')}?text=${whatsappMessage}`;
+        window.parent.postMessage({ type: "OPEN_EXTERNAL_URL", data: { url: whatsappUrl } }, "*");
+      }
 
       setOrderPlaced(true);
       clearCart();

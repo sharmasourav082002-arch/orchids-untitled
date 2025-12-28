@@ -42,7 +42,7 @@ interface HomeClientProps {
 
 export default function HomeClient({ products }: HomeClientProps) {
   const { addToCart } = useCart();
-  const [isMounted, setIsMounted] = React.useState(false);
+    const [isMounted, setIsMounted] = useState(false);
   
   useEffect(() => {
     setIsMounted(true);

@@ -20,6 +20,8 @@ import { Navbar } from '@/components/Navbar';
 import { ProductCard } from '@/components/ProductCard';
 import { CartDrawer } from '@/components/CartDrawer';
 import { useCart } from '@/context/CartContext';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { SafeImage } from '@/components/SafeImage';
 
 const HeroScene = lazy(() => import('@/components/Scene3D').then(mod => ({ default: mod.HeroScene })));
 const ProductScene = lazy(() => import('@/components/Scene3D').then(mod => ({ default: mod.ProductScene })));
@@ -40,8 +42,10 @@ interface HomeClientProps {
 
 export default function HomeClient({ products }: HomeClientProps) {
   const { addToCart } = useCart();
+  const [isMounted, setIsMounted] = React.useState(false);
   
   useEffect(() => {
+    setIsMounted(true);
     console.log('HomeClient mounted with', products.length, 'products');
   }, [products]);
   
@@ -56,18 +60,26 @@ export default function HomeClient({ products }: HomeClientProps) {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white selection:bg-white selection:text-black overflow-x-hidden">
-      <Suspense fallback={null}>
-        <BackgroundScene />
-      </Suspense>
+      <ErrorBoundary fallback={null}>
+        {isMounted && (
+          <Suspense fallback={null}>
+            <BackgroundScene />
+          </Suspense>
+        )}
+      </ErrorBoundary>
       
       <Navbar />
       <CartDrawer />
       
       {/* Hero Section with 3D */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-        <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-900" />}>
-          <HeroScene />
-        </Suspense>
+        <ErrorBoundary fallback={<div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-900" />}>
+          {isMounted && (
+            <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-900" />}>
+              <HeroScene />
+            </Suspense>
+          )}
+        </ErrorBoundary>
         
         <motion.div 
           initial={{ opacity: 0 }}

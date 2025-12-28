@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Truck, 

@@ -7,6 +7,7 @@ export const auth = betterAuth({
         connectionString: process.env.DATABASE_URL,
         ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
     })),
+    baseURL: process.env.BETTER_AUTH_URL || process.env.URL || process.env.NEXT_PUBLIC_APP_URL,
     emailAndPassword: {
         enabled: true
     }

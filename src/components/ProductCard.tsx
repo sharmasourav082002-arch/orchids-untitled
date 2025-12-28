@@ -39,11 +39,10 @@ export function ProductCard({ product }: { product: Product }) {
       className="group relative flex flex-col transition-all duration-500 hover:shadow-[0_40px_80px_rgba(255,255,255,0.1)] rounded-3xl p-5 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 hover:border-zinc-700"
     >
       <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-zinc-800">
-        <motion.img 
+        <SafeImage 
           src={product.image_url} 
           alt={product.name} 
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          style={{ transformStyle: "preserve-3d" }}
         />
         
         {/* Quick Action Overlay */}

@@ -341,9 +341,13 @@ export default function HomeClient({ products }: HomeClientProps) {
       <section className="relative py-40 rounded-[5rem] mx-4 my-24 border border-zinc-800 shadow-[0_0_100px_rgba(0,0,0,0.5)] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-zinc-950 to-black" />
         
-        <Suspense fallback={null}>
-          <ProductScene />
-        </Suspense>
+        <ErrorBoundary fallback={null}>
+          {isMounted && (
+            <Suspense fallback={null}>
+              <ProductScene />
+            </Suspense>
+          )}
+        </ErrorBoundary>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="mb-24 text-center">

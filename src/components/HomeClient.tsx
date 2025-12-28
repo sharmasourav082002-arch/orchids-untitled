@@ -382,21 +382,22 @@ export default function HomeClient({ products }: HomeClientProps) {
       <section className="py-40 overflow-hidden relative">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 gap-24 lg:grid-cols-2 lg:items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ rotateY: 15, rotateX: -8, scale: 1.02 }}
-              viewport={{ once: true }}
-              style={{ perspective: 2000, transformStyle: "preserve-3d" }}
-              className="relative aspect-square overflow-hidden rounded-[5rem] shadow-[0_60px_120px_rgba(0,0,0,0.6)] bg-gradient-to-br from-zinc-900 to-zinc-950 p-10 border border-zinc-800"
-            >
-              <img 
-                src={featuredProduct.image_url} 
-                alt={featuredProduct.name} 
-                className="h-full w-full object-cover rounded-[4rem]"
-              />
-              
-              {/* Floating 3D Decorations */}
+              <motion.div 
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ rotateY: 15, rotateX: -8, scale: 1.02 }}
+                viewport={{ once: true }}
+                style={{ perspective: 2000, transformStyle: "preserve-3d" }}
+                className="relative aspect-square overflow-hidden rounded-[5rem] shadow-[0_60px_120px_rgba(0,0,0,0.6)] bg-gradient-to-br from-zinc-900 to-zinc-950 p-10 border border-zinc-800"
+              >
+                <SafeImage 
+                  src={featuredProduct.image_url} 
+                  alt={featuredProduct.name} 
+                  className="h-full w-full object-cover rounded-[4rem]"
+                />
+                
+                {/* Floating 3D Decorations */}
+
               <motion.div 
                 animate={{ y: [0, -20, 0], rotate: [0, 180, 360] }}
                 transition={{ duration: 10, repeat: Infinity }}

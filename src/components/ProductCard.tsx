@@ -5,6 +5,7 @@ import { useCart } from '@/context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Plus, Eye, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { SafeImage } from '@/components/SafeImage';
 
 interface Product {
   id: string;

@@ -256,46 +256,47 @@ export default function HomeClient({ products }: HomeClientProps) {
       <section className="py-32 overflow-hidden relative">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              whileHover={{ rotateY: -10, rotateX: 5, scale: 1.02 }}
-              viewport={{ once: true }}
-              style={{ perspective: 1500, transformStyle: "preserve-3d" }}
-              className="relative aspect-[4/5] overflow-hidden rounded-[4rem] shadow-[0_50px_100px_rgba(0,0,0,0.5)] transition-all duration-700 group"
-            >
-              <img 
-                src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000&auto=format&fit=crop" 
-                alt="Dresses" 
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-              <div className="absolute bottom-12 left-12 text-white">
-                <motion.h3 
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  className="text-5xl font-black tracking-tighter mb-6"
-                >
-                  DRESSES
-                </motion.h3>
-                <motion.div whileHover={{ scale: 1.05, x: 10 }}>
-                  <Link href="#" className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] bg-white text-black px-8 py-4 rounded-full hover:bg-zinc-200 transition-all shadow-2xl">
-                    Shop Now <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </motion.div>
-              </div>
-              
-              {/* 3D Badge */}
               <motion.div 
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute top-12 right-12 h-20 w-20 rounded-full border-2 border-white/30 flex items-center justify-center"
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ rotateY: -10, rotateX: 5, scale: 1.02 }}
+                viewport={{ once: true }}
+                style={{ perspective: 1500, transformStyle: "preserve-3d" }}
+                className="relative aspect-[4/5] overflow-hidden rounded-[4rem] shadow-[0_50px_100px_rgba(0,0,0,0.5)] transition-all duration-700 group"
               >
-                <div className="h-16 w-16 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center">
-                  <span className="text-[8px] font-black uppercase tracking-widest text-white">NEW</span>
+                <SafeImage 
+                  src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1000&auto=format&fit=crop" 
+                  alt="Dresses" 
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                <div className="absolute bottom-12 left-12 text-white">
+                  <motion.h3 
+                    initial={{ y: 20, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    className="text-5xl font-black tracking-tighter mb-6"
+                  >
+                    DRESSES
+                  </motion.h3>
+                  <motion.div whileHover={{ scale: 1.05, x: 10 }}>
+                    <Link href="#" className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] bg-white text-black px-8 py-4 rounded-full hover:bg-zinc-200 transition-all shadow-2xl">
+                      Shop Now <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </motion.div>
                 </div>
+                
+                {/* 3D Badge */}
+                <motion.div 
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="absolute top-12 right-12 h-20 w-20 rounded-full border-2 border-white/30 flex items-center justify-center"
+                >
+                  <div className="h-16 w-16 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center">
+                    <span className="text-[8px] font-black uppercase tracking-widest text-white">NEW</span>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
+
             
             <div className="space-y-12 pl-0 lg:pl-12">
               <motion.div 

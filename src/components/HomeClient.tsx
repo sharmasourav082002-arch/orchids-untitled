@@ -41,6 +41,10 @@ interface HomeClientProps {
 export default function HomeClient({ products }: HomeClientProps) {
   const { addToCart } = useCart();
   
+  useEffect(() => {
+    console.log('HomeClient mounted with', products.length, 'products');
+  }, [products]);
+  
   const featuredProduct = products[0] || {
     id: "featured-1",
     name: "Light Jumpsuit",
